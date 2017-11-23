@@ -109,21 +109,24 @@ public class Main extends JavaPlugin implements Listener {
 	    Player p = this.p;
 		int max = Bukkit.getServer().getMaxPlayers();
 		int online = Bukkit.getServer().getOnlinePlayers().size();
-		msg = msg.replace("{playername}", p.getName());
-		msg = msg.replace("{displayname}", p.getDisplayName());
-		msg = msg.replace("{online}", String.valueOf(online));
-		msg = msg.replace("{maxplayers}", String.valueOf(max));
-		msg = msg.replace("{hp}", String.valueOf(Math.round(p.getHealth())));
-		msg = msg.replace("{exp}", String.valueOf(Math.round(p.getTotalExperience())));
-		msg = msg.replace("{hunger}", String.valueOf(Math.round(p.getFoodLevel())));
-		msg = msg.replace("{ip}", String.valueOf(p.getAddress()));
-		msg = msg.replace("{x-pos}", String.valueOf(Math.round(p.getLocation().getBlockX())));
-		msg = msg.replace("{y-pos}", String.valueOf(Math.round(p.getLocation().getBlockY())));
-		msg = msg.replace("{z-pos}", String.valueOf(Math.round(p.getLocation().getBlockZ())));
+		msg = msg.replace("{playername}", p.getName())
+			.replace("{displayname}", p.getDisplayName())
+			.replace("{online}", String.valueOf(online))
+			.replace("{maxplayers}", String.valueOf(max))
+			.replace("{hp}", String.valueOf(Math.round(p.getHealth())))
+			.replace("{exp}", String.valueOf(Math.round(p.getTotalExperience())))
+			.replace("{hunger}", String.valueOf(Math.round(p.getFoodLevel())))
+			.replace("{ip}", String.valueOf(p.getAddress()))
+			.replace("{x-pos}", String.valueOf(Math.round(p.getLocation().getBlockX())))
+			.replace("{y-pos}", String.valueOf(Math.round(p.getLocation().getBlockY())))
+			.replace("{z-pos}", String.valueOf(Math.round(p.getLocation().getBlockZ())));
 
 		if (getConfig().getBoolean("PlaceholderAPI")) {
+			PluginManager pm = getServer().getPluginManager();
+			if (pm.getPlugin("PlaceholderAPI").isEnabled()) {
             PlaceholderAPI.getExternalPlaceholderPlugins();
 			PlaceholderAPI.setPlaceholders(p, msg);
+			}
 		}
 
 		return msg;
